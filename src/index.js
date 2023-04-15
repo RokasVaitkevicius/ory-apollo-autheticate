@@ -41,6 +41,12 @@ const apollo = new ApolloServer({
 await apollo.start()
 
 const apolloContext = async (request) => {
+  if (
+    request?.body?.operationName === "SubgraphIntrospectQuery" ||
+    request?.body?.query?.includes("IntrospectionQuery")
+  )
+    return
+
   const { cookie } = request?.headers
 
   if (!cookie) {
