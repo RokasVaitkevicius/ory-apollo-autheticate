@@ -41,6 +41,7 @@ const apollo = new ApolloServer({
 await apollo.start()
 
 const apolloContext = async (request) => {
+  // If it's introspection query we don't need to do anything
   if (
     request?.body?.operationName === "SubgraphIntrospectQuery" ||
     request?.body?.query?.includes("IntrospectionQuery")
